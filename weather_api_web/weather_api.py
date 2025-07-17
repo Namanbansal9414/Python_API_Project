@@ -5,7 +5,7 @@ import streamlit as st
 API_KEY = "1e9fc4ace0e149d6bb2133632251307"
 BASE_URL = "http://api.weatherapi.com/v1"
 
-def get_current_weather(city):
+def weather_Api(city):
     url = f"{BASE_URL}/current.json"
     postcode = {"key": API_KEY, "q": city, "aqi": "yes"}
 
@@ -19,7 +19,7 @@ def get_current_weather(city):
         
     
     if not data:
-        print("Failed to retrieve weather.")
+        print("Failed to fetch weather.")
         return
     else:
         loc = data["location"]
@@ -48,7 +48,7 @@ city = st.text_input("**Enter The City Name**" , placeholder="e.g. New York, Lon
 
 def main():
     try:
-        location, region, country, temp_c, feelslike_c, condition, humidity, wind_kph, us_epa_index, pm2_5 = get_current_weather(city)
+        location, region, country, temp_c, feelslike_c, condition, humidity, wind_kph, us_epa_index, pm2_5 = weather_Api(city)
 
         st.success(f"Weather in {location}, {region}, {country}")
         st.write(f"🌡 **Temperature** : {temp_c}°C , (Feels like : {feelslike_c}°C)")
